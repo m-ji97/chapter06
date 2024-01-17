@@ -28,7 +28,7 @@ public class Sever {
 
 		//클라이언트가 접속을 하면 accept()가 실행됨
 		Socket socket = serverSocket.accept();
-		System.out.println("[클라이언트가 연결 되었습니다.");
+		System.out.println("[클라이언트가 연결 되었습니다.]");
 
 
 		//메세지 받기용 스트림
@@ -40,15 +40,27 @@ public class Sever {
 		OutputStream os = socket.getOutputStream();
 		OutputStreamWriter isw = new OutputStreamWriter(os, "UTF-8");
 		BufferedWriter bw = new BufferedWriter(isw);
+		
+		////
+		
+		while(true) {
+			
+			//메세지 받기
+			String msg = br.readLine();
+			if(msg==null) {
+				break;
+			}
+			
+			System.out.println("받은메세지:" + msg);
 
-		//메세지 받기
-		String msg = br.readLine();
-		System.out.println("받은메세지:" + msg);
-
-		//메세지 보내기
-		bw.write(msg);
-		bw.newLine();
-		bw.flush();
+			//메세지 보내기
+			bw.write(msg);
+			bw.newLine();
+			bw.flush();
+		}
+		
+		System.out.println("===========================");
+		System.out.println("<서버 종료>");
 
 		//닫기
 		bw.close();

@@ -36,17 +36,48 @@ public class Client {
 		InputStreamReader isw = new InputStreamReader(is, "UTF-8");
 		BufferedReader br = new BufferedReader(isw);
 		
+		//스케너 준비
 		Scanner sc = new Scanner(System.in);
-		String str =sc.nextLine();
 		
-		//메세지 보내기
-		bw.write(str);
-		bw.newLine();
-		bw.flush();
+		/*
+		InputStream sc = System.in; 
+		InputStreamReader scIsr = new InputStreamReader(sc);
+		BufferedReader scBr = new BufferedReader(scIsr);
+		*/
 		
-		//메세지 받기용
-		String reMsg = br.readLine();
-		System.out.println("server:["+reMsg+"]");
+		///반복
+		
+		while(true) {
+			//키보드 입력
+			String str =sc.nextLine();
+			//String str = scBr.readLine();
+			
+			
+			if("/q".equals(str)) {
+				break;
+			}
+			
+			//메세지 보내기
+			bw.write(str);
+			bw.newLine();
+			bw.flush();
+			
+			//메세지 받기용
+			String reMsg = br.readLine();
+			System.out.println("server:["+reMsg+"]");
+			
+			///////////////////////////////////////////////
+			//Println만들기
+			OutputStream pos = System.out;
+			OutputStreamWriter posw = new OutputStreamWriter(pos, "UTF-8");
+			BufferedWriter pbw = new BufferedWriter(posw);
+			pbw.write("pritln 테스트");
+			pbw.newLine();
+			pbw.flush();
+			
+		}
+		System.out.println("=============================");
+		System.out.println("[클라이언트 종료]");
 		
 		//닫기
 		sc.close();
